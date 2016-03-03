@@ -21,7 +21,7 @@ deployment:
       - docker-compose up build
       - go get github.com/aktau/github-release
       - github-release release --user bluele --repo go-nginx-docker --tag st-`cat release_tag` --name "go-nginx-docker st-`cat release_tag`" --description "sample"
-      - github-release upload --user bluele --repo go-nginx-docker --tag st-`cat release_tag` --name go-nginx-docker_linux_amd64 --file ./dist/go-nginx-docker_linux_amd64
+      - github-release upload --user bluele --repo go-nginx-docker --tag st-`cat release_tag` --name app_linux_amd64 --file ./dist/go-nginx-docker_linux_amd64
 
   release:
     branch: release
