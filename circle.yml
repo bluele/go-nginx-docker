@@ -1,6 +1,8 @@
 machine:
   services:
     - docker
+  timezone:
+    Asia/Tokyo
 
 dependencies:
   override:
@@ -11,3 +13,22 @@ test:
     - docker-compose build
   override:
     - docker-compose up unittest
+
+deployment:
+  staging:
+    branch: master
+    commands:
+      - go get github.com/mitchellh/gox
+      - go get github.com/aktau/github-release
+      - gox --osarch "linux/amd64" --output "dist/{{.Dir}}_{{.OS}}_{{.Arch}}"
+      - github-release release --user bluele --repo go-nginx-docker --tag st-`cat release_tag` --name "go-nginx-docker st-`cat release_tag`" --description "sample"
+      - github-release upload --user bluele --repo go-nginx-docker --tag st-`cat release_tag` --name go-nginx-docker_linux_amd64 --file ./dist/go-nginx-docker_linux_amd64
+
+  release:
+    branch: release
+    commands:
+      - go get github.com/mitchellh/gox
+      - go get github.com/aktau/github-release
+      - gox --osarch "linux/amd64" --output "dist/{{.Dir}}_{{.OS}}_{{.Arch}}"
+      - github-release release --user bluele --repo go-nginx-docker --tag `cat release_tag` --name "go-nginx-docker `cat release_tag`" --description "sample"
+      - github-release upload --user bluele --repo go-nginx-docker --tag `cat release_tag` --name go-nginx-docker_linux_amd64 --file ./dist/go-nginx-docker_linux_amd64
