@@ -26,3 +26,10 @@ datastore:
 unittest:
   build: .
   command: 'bash -c ''go test -v'''
+
+build:
+  build: .
+  volumes:
+    - "./dist:/tmp/dist"
+    - "./sh:/tmp/sh"
+  command: 'bash /tmp/sh/build.sh'
