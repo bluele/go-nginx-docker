@@ -10,5 +10,5 @@ DIST_PATH="./dist/$APP_NAME"
 
 docker-compose up build
 go get github.com/aktau/github-release
-github-release release --user $SHIP_USER --repo $SHIP_REPO --tag $SHIP_TAG --name $APP_NAME --description "sample"
-github-release upload --user $SHIP_USER --repo $SHIP_REPO --tag $SHIP_TAG --name $APP_NAME --file $DIST_PATH
+github-release release --user $SHIP_USER --repo $SHIP_REPO --tag $SHIP_TAG --name $APP_NAME-$SHIP_TAG --description "sample"
+github-release upload --user $SHIP_USER --repo $SHIP_REPO --tag $SHIP_TAG --name $APP_NAME-$SHIP_TAG --file $DIST_PATH
