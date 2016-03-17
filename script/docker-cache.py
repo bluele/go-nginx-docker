@@ -41,6 +41,7 @@ def save(base):
 
 def load(base):
     for fname in os.listdir(base):
+        print(fname)
         cmd = '''docker load < "{}"'''.format(join(base, fname))
         if is_debug:
             debug(cmd)
@@ -63,7 +64,7 @@ def main():
 
     for p in (loader, saver):
         p.add_argument(
-            '--cache', nargs=1, help='path to cache directory'
+            '--cache', nargs=1, help='path to image cache directory'
         )
         p.add_argument(
             '--debug', action='store_true'

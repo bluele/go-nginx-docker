@@ -7,10 +7,9 @@ import commands
 import sys
 
 is_debug = False
-cache_dir = expanduser('~/cache')
 
 
-def check_digest(name):
+def check_digest(name, cache_dir):
     digest_path = join(cache_dir, basename(name) + '.digest')
     if not exists(digest_path):
         return True
@@ -25,9 +24,9 @@ def check_digest(name):
     return False
 
 
-def check_digests(names):
+def check_digests(names, cache_dir):
     for name in names:
-        if check_digest(name):
+        if check_digest(name, cache_dir):
             if is_debug:
                 print("{}'s digest has changed.".format(name))
             sys.exit(1)
@@ -37,16 +36,16 @@ def check_digests(names):
     sys.exit(0)
 
 
-def save_digest(name):
+def save_digest(name, cache_dir):
     with open(name) as r:
         current = md5(r.read()).hexdigest()
         with open(join(cache_dir, basename(name) + '.digest'), 'wb') as f:
             f.write(current)
 
 
-def save_digests(names):
+def save_digests(names, cache_dir):
     for name in names:
-        save_digest(name)
+        save_digest(name, cache_dir)
 
 
 def main():
@@ -66,12 +65,15 @@ def main():
             '--files', nargs='+'
         )
         p.add_argument(
+            '--cache', nargs=1, help='path to cache directory'
+        )
+        p.add_argument(
             '--debug', action='store_true'
         )
 
     args = parser.parse_args()
     is_debug = args.debug
-    args.func(args.files)
+    args.func(args.files, args.cache[0])
 
 if __name__ == '__main__':
     main()
