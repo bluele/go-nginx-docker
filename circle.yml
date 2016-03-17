@@ -18,9 +18,9 @@ deployment:
   staging:
     branch: master
     commands:
-      - sh ./sh/ship.sh "st-"
+      - sh ./script/ship.sh "st-"
 
   release:
     branch: release
     commands:
-      - sh ./sh/ship.sh
+      - sh ./script/ship.sh

@@ -31,5 +31,5 @@ build:
   build: .
   volumes:
     - "./dist:/tmp/dist"
-    - "./sh:/tmp/sh"
-  command: 'bash /tmp/sh/build.sh'
+    - "./script:/tmp/script"
+  command: 'bash /tmp/script/build.sh'
