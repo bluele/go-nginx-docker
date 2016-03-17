@@ -2,15 +2,16 @@
 # -*- coding:utf-8 -*-
 from __future__ import print_function
 from hashlib import md5
-from os.path import join, exists, expanduser
+from os.path import join, exists, expanduser, basename
 import commands
 import sys
 
 is_debug = False
+cache_dir = expanduser('~/cache')
 
 
 def check_digest(name):
-    digest_path = join(expanduser('~'), name + '.digest')
+    digest_path = join(cache_dir, basename(name) + '.digest')
     if not exists(digest_path):
         return True
 
@@ -39,7 +40,7 @@ def check_digests(names):
 def save_digest(name):
     with open(name) as r:
         current = md5(r.read()).hexdigest()
-        with open(join(expanduser('~'), name + '.digest'), 'wb') as f:
+        with open(join(cache_dir, basename(name) + '.digest'), 'wb') as f:
             f.write(current)
 
 
