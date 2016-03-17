@@ -7,6 +7,10 @@ machine:
 dependencies:
   override:
     - sudo pip install --upgrade docker-compose==1.3.0
+  cache_directories:
+    - "~/cache"
+  pre:
+    - ./script/docker-build.sh ./Dockerfile ./docker-compose.yml
 
 test:
   pre:
