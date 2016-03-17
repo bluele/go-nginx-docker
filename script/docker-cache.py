@@ -31,7 +31,7 @@ def get_images():
 
 def save(base):
     for name in get_images():
-        cmd = '''docker save "{}"'''.format(name, join(base, name))
+        cmd = '''docker save "{}" > {}'''.format(name, join(base, name))
         if is_debug:
             debug(cmd)
         outputs = commands.getstatusoutput(cmd)
