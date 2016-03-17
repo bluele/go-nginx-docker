@@ -10,6 +10,9 @@ dependencies:
   cache_directories:
     - "~/cache"
   pre:
+    - ls ~/cache
+    - ls ~/cache/images
+    - ls ~/cache/digests
     - WATCH_FILES="./Dockerfile ./docker-compose.yml" sh ./script/docker-build.sh
 
 test:
